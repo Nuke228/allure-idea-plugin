@@ -1,0 +1,42 @@
+<idea-plugin>
+    <id>com.github.allureidea.allure-idea-plugin</id>
+    <name>Allure TestOps Integration</name>
+    <version>1.0.0</version>
+    <vendor>allure-idea</vendor>
+
+    <description><![CDATA[
+    Creates test cases in Allure TestOps directly from @Test methods.
+    Adds @AllureId back to the code.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService
+                serviceImplementation="com.github.allureidea.settings.AllureSettingsState"/>
+
+        <projectService
+                serviceImplementation="com.github.allureidea.service.AllurePluginService"/>
+
+        <applicationConfigurable
+                parentId="tools"
+                implementation="com.github.allureidea.settings.AllureSettingsConfigurable"
+                id="com.github.allureidea.settings.AllureSettingsConfigurable"
+                displayName="Allure TestOps"/>
+
+        <notificationGroup id="Allure TestOps Notifications"
+                           displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <action id="com.github.allureidea.action.CreateAllureTestAction"
+                class="com.github.allureidea.action.CreateAllureTestAction"
+                text="Create Allure Test Case"
+                description="Create a test case in Allure TestOps from this @Test method">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
